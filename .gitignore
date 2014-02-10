@@ -13,3 +13,6 @@ Thumbs.db
 *.log
 /.repl
 /assets/out
+/assets/out-csp
+/assets/out-resp
+/assets/out-ac

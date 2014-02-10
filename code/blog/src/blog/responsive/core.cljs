@@ -3,14 +3,17 @@
     [cljs.core.async.macros :refer [go]]
     [cljs.core.match.macros :refer [match]])
   (:require
+   [goog.events :as events]
+   [goog.events.EventType]
     [cljs.core.match]
-    [cljs.core.async :refer [>! <! alts! chan]]
+    [cljs.core.async :refer [>! <! alts! chan put!]]
     [blog.utils.dom :as dom]
-    [blog.utils.reactive :as r]))
+    [blog.utils.reactive :as r]
+    [clojure.browser.repl]))
 
 ;; -----------------------------------------------------------------------------
 ;; Declarations
-
+(enable-console-print!)
 (def ENTER 13)
 (def UP_ARROW 38)
 (def DOWN_ARROW 40)
@@ -108,19 +111,23 @@
     (r/filter KEYS)
     (r/map key->keyword)))
 
+
+
 (defn create-example [id event-fn render-fn ctor-fn]
   (let [hc      (r/hover (dom/by-id id))
         prevent (atom false)
-        raw     (event-fn prevent)
+        raw     (event-fn #(deref prevent))
         c       (r/toggle raw)
         changes (ctor-fn (:chan c))
         ctrl    (:control c)]
   (when render-fn
     (render-fn))
   (go
-    (>! ctrl false)
+   (>! ctrl false)
+   (println "changes!!")
     (while true
       (when (= (<! hc) :enter)
+        (println "enter!!")
         (>! ctrl true)
         (reset! prevent true)
         (loop []
@@ -128,7 +135,9 @@
             (cond
               (= e :leave) (do (>! ctrl false)
                              (reset! prevent false))
-              (= c changes) (do (when render-fn (render-fn))
+              (= c changes) (do
+                              (println "changes2!!")
+                              (when render-fn (render-fn))
                               (recur))
               :else (recur)))))))))
 
@@ -144,7 +153,7 @@
     (aset list n (set-char! (aget list n) 0 ">")))
   (-unhighlight! [list n]
     (aset list n (set-char! (aget list n) 0 " ")))
-  
+
   ISelectable
   (-select! [list n]
     (aset list n (set-char! (aget list n) 1 "*")))
@@ -162,6 +171,7 @@
       (fn [events]
         (highlighter events ui)))))
 
+
 ;; =============================================================================
 ;; Example 1
 
@@ -178,14 +188,19 @@
         (selector (highlighter events ui)
           ui ["smalltalk", "lisp", "prolog", "ml"])))))
 
+
+
+
+
 ;;=============================================================================
 ;; Example 2
+
 
 (defn ex2-events [ui prevent]
   (r/fan-in [(key-events prevent)
              (r/hover-child ui "li")
              (r/map (constantly :select)
-               (r/listen ui :click))]))
+                    (r/listen ui :click))]))
 
 (extend-type js/HTMLUListElement
   ICounted
@@ -197,7 +212,7 @@
     (dom/add-class! (nth (dom/by-tag-name list "li") n) "highlighted"))
   (-unhighlight! [list n]
     (dom/remove-class! (nth (dom/by-tag-name list "li") n) "highlighted"))
-  
+
   ISelectable
   (-select! [list n]
     (dom/add-class! (nth (dom/by-tag-name list "li") n) "selected"))
@@ -207,8 +222,8 @@
 (when (dom/by-id "ex2-list")
   (let [ui (dom/by-id "ex2-list")]
     (create-example "ex2"
-      (fn [prevent] (ex2-events ui prevent))
-      nil
-      (fn [events]
-        (selector (highlighter events ui) ui
-          ["pynchon" "proust" "faulkner" "melville"])))))
+                    (fn [prevent] (ex2-events ui prevent))
+                    nil
+                    (fn [events]
+                      (selector (highlighter events ui) ui
+                                ["pynchon" "proust" "faulkner" "melville"])))))

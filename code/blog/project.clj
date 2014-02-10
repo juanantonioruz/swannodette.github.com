@@ -24,7 +24,7 @@
      :source-paths ["src/blog/csp"
                     "src/blog/utils"]
      :compiler {:output-to "../../assets/js/csp.js"
-                :output-dir "../../assets/out"
+                :output-dir "../../assets/out-csp"
                 :optimizations :none
                 :source-map true}}
     {:id "csp-adv"
@@ -52,9 +52,10 @@
     {:id "resp-dev"
      :source-paths ["src/blog/responsive"
                     "src/blog/utils"]
-     :compiler {:optimizations :whitespace
-                :pretty-print false
-                :output-to "../../assets/js/resp.js"}}
+     :compiler {:output-to "../../assets/js/resp.js"
+                :output-dir "../../assets/out-resp"
+                :optimizations :none
+                :source-map true}}
     {:id "resp-adv"
      :source-paths ["src/blog/responsive"
                     "src/blog/utils"]
@@ -66,8 +67,9 @@
     {:id "ac-dev"
      :source-paths ["src/blog/autocomplete"
                     "src/blog/utils"]
-     :compiler {:optimizations :whitespace
-                :pretty-print false
+     :compiler {:output-dir "../../assets/out-ac"
+                :optimizations :none
+                :source-map true
                 :output-to "../../assets/js/ac.js"}}
     {:id "ac-adv"
      :source-paths ["src/blog/autocomplete"

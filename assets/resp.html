@@ -1,0 +1,132 @@
+<html>
+ <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>CSP is Responsive Design</title>
+        <meta name="author" content="David Nolen" />
+
+        <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="themes/tom/css/syntax.css" type="text/css" />
+
+        <!-- Homepage CSS -->
+        <link rel="stylesheet" href="themes/tom/css/screen.css" type="text/css" media="screen, projection" />
+
+        <!-- MathJax -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              processEscapes: true
+            }
+          });
+        </script>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Typekit -->
+        <!--
+        <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        -->
+<style>
+  #post ol {
+    position: relative;
+    left: 200px;
+    font-size: 18px;
+    line-height: 1.5em;
+    margin: 30px 0 30px 0;
+  }
+  #resp {
+    font-size: 18px;
+    text-align: center;
+    font-family: Georgia;
+    margin: 30px 0;
+  }
+  #ex0-ui, #ex1-ui, #ex2-ui {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  #post #ex0 {
+    height: 90px;
+    background-color: red;
+    border: none;
+    padding-top: 20px;
+  }
+  #post #ex1 {
+    height: 110px;
+    background-color: #efefef;
+    border: none;
+    padding-top: 20px;
+  }
+  #post .example pre {
+    background-color: transparent;
+    position: relative;
+    left: 200px;
+    font-size: 18px;
+  }
+  #post #ex2 {
+    height: 150px;
+    background-color: #efefef;
+    border: none;
+    padding-top: 20px;
+  }
+  #post #ex2 ul {
+    position: relative;
+    background: white;
+    width: 170px;
+    left: 190px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+  }
+  #post #ex2 li {
+    cursor: pointer;
+    list-style: none;
+    padding: 4px 4px 4px 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  #post #ex2 li.highlighted {
+    background-color: #ccccff;
+  }
+  #post #ex2 li.selected {
+    background-color: #ffcccc;
+  }
+  #post #ex2 li.highlighted.selected {
+    background-color: #ffccff;
+  }
+</style>
+    </head>
+  <body >
+<div id="post">
+<div id="ex0" class="example" >
+   <pre id="ex0-ui" style="border: none;"></pre>
+</div>
+
+<div id="ex1" class="example">
+    <pre id="ex1-ui" style="border: none;"></pre>
+</div>
+
+<div id="ex2" class="example">
+   <ul id="ex2-list">
+      <li>Gravity's Rainbow</li>
+      <li>Swann's Way</li>
+      <li>Absalom, Absalom</li>
+      <li>Moby Dick</li>
+   </ul>
+</div>
+
+
+</div>
+
+
+<script src="out-resp/goog/base.js" type="text/javascript"></script>
+
+
+<script type="text/javascript" src="js/resp.js"></script>
+<script type="text/javascript">goog.require("blog.responsive.core");</script>
+<script>;goog.require('clojure.browser.repl');clojure.browser.repl.connect.call(null, 'http://localhost:49271/8159/repl');</script>
+
+  </body>
+</html>
