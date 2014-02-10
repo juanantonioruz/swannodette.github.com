@@ -9,20 +9,24 @@
                  "https://oss.sonatype.org/content/groups/staging/"}
 
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [org.clojure/clojurescript "0.0-1889"]
-                 [org.clojure/core.async "0.1.0-SNAPSHOT"]
-                 [org.clojure/core.match "0.2.0-rc5"]]
+                 [org.clojure/clojurescript "0.0-2138"]
+                 [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
+                 [org.clojure/core.match "0.2.1"]
+]
 
-  :plugins [[lein-cljsbuild "0.3.2"]]
-
+  :source-paths ["src" "src-clj"]
+  :plugins [[com.cemerick/austin "0.1.3"]
+            [lein-cljsbuild "1.0.1"]]
+  :repl-options { :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :cljsbuild
   {:builds
    [{:id "csp-dev"
      :source-paths ["src/blog/csp"
                     "src/blog/utils"]
-     :compiler {:optimizations :whitespace
-                :pretty-print false
-                :output-to "../../assets/js/csp.js"}}
+     :compiler {:output-to "../../assets/js/csp.js"
+                :output-dir "../../assets/out"
+                :optimizations :none
+                :source-map true}}
     {:id "csp-adv"
      :source-paths ["src/blog/csp"
                     "src/blog/utils"]
